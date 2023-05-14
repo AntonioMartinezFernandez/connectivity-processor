@@ -1,0 +1,40 @@
+package infrastructure
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+
+	"net/http"
+
+	http_application "connectivity-processor/internal/http/application"
+	http_domain "connectivity-processor/internal/http/domain"
+	processor_domain "connectivity-processor/internal/processor/domain"
+)
+
+func DisconnectHandler(w http.ResponseWriter, r *http.Request, de processor_domain.DisconnectedUsecase) {
+	fmt.Println("processing 'disconnected' event...")
+
+	// Read request body
+	requestBody, err := io.ReadAll(r.Body)
+	defer r.Body.Close()
+	if err != nil {
+		SendResponseUnprocessableEntity(w)
+	}
+
+	// Unmarshall body
+	parsedRequestBody := http_domain.DisconnectedRequest{}
+	if err := json.Unmarshal(requestBody, &parsedRequestBody); err != nil {
+		fmt.Println("error unmarshalling request body: ", err)
+		SendResponseUnprocessableEntity(w)
+	} else {
+		// Run usecase
+		handlerResponse := http_application.ProcessDisconnectedEvent(parsedRequestBody, de)
+		if handlerResponse.Data != nil {
+			fmt.Println("process disconnected handler error: ", handlerResponse)
+			SendResponseInternalServerError(w)
+		} else {
+			SendResponseWithData(w, handlerResponse)
+		}
+	}
+}

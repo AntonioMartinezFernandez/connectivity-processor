@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "1402932c-2934-40ac-ac51-6e970a3b102b",
+		"name": "connectivity-processor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20801644"
+	},
+	"item": [
+		{
+			"name": "/healthcheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/healthcheck",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/connected",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientId\": \"186b5\",\r\n    \"timestamp\": 1573002230757,\r\n    \"eventType\": \"connected\",\r\n    \"sessionIdentifier\": \"a4666d2a7d844ae4ac5d7b38c9cb7967\",\r\n    \"principalIdentifier\": \"12345678901234567890123456789012\",\r\n    \"ipAddress\": \"192.0.2.0\",\r\n    \"versionNumber\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/connected",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"connected"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/disconnected",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientId\": \"186b5\",\r\n    \"timestamp\": 1573002340451,\r\n    \"eventType\": \"disconnected\",\r\n    \"sessionIdentifier\": \"a4666d2a7d844ae4ac5d7b38c9cb7967\",\r\n    \"principalIdentifier\": \"12345678901234567890123456789012\",\r\n    \"clientInitiatedDisconnect\": true,\r\n    \"disconnectReason\": \"CLIENT_INITIATED_DISCONNECT\",\r\n    \"versionNumber\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/disconnected",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"disconnected"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
